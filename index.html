@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dinosaurio care chrome</title>
+
+    <style>
+
+*{
+    padding:0;
+    margin:0;
+}
+
+body{
+    height: 100vh;
+    background: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+}
+
+.contenedor {
+    width: 920px;
+    height: 280px;
+    margin: 0 auto;
+
+    position: relative;
+
+    background: linear-gradient(#a4ffd3, #dbe9e2);
+    overflow: hidden; 
+}
+
+.dino{
+    width: 84px;
+    height: 84px;
+
+    position: absolute;
+    bottom: 22px;
+    left: 42px;
+    z-index: 2;
+
+    background: url(dinosaurios.png); mask-repeat: repeat-x 0px 0px;
+    background-size: 336px 84px;
+    background-position-x: 0px;
+}
+
+.dinocorriendo{
+    animation: animarDino 0.25s steps(2) infinite;
+}
+
+.dino-estrellado{
+    background-position-x: -252px;
+}
+
+.suelo{
+    width: 200%;
+    height: 42px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background: url(piso\ del\ dinosaurio.png) repeat-x 0px 0px;
+    background-size: 50% 42px;
+
+}
+
+.score{
+    width: 200%;
+    height: 30px;
+
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    z-index: 10;
+
+    color: crimson;
+    font-family: cursive;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+}
+
+@keyframes animarDino{
+    from{
+        background-position-x: -84px;
+    }
+    to{
+        background-position-x: -252px;
+    }
+}
+
+     </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="suelo"></div>
+
+        <div class="dino dino-corriendo"></div>
+
+        <div class="score">0</div>
+  </div>
+
+ 
+<script>
+
+
+//* GAME LOOP***//
+
+var time = new date ();
+var deltaTime = 0;
+
+if(document.readyState === "complete" || document.readyState === "interactive"){
+    setTimeout(Init,1);
+}else{
+    document.addEventListener("DOMContentLoaded", Init);
+}
+
+function Init() {
+   time = new Date ();
+   Start();
+   Loop();
+}
+
+function Loop() {
+    deltaTime = (new Date() - time) / 1000;
+    time = new Date();
+    Update()
+    requestAnimationFrame(loop);
+}
+
+//* aqui va el juego **//
+
+
+var sueloY = 22; 
+var velY = 0; 
+var impulso = 900; 
+var gravedad = 2500;
+
+varDinoPosX = 42; 
+varDinoPosY = sueloY;
+
+var sueloX = 0; 
+var velEscenario = 1280/3; 
+var gameVel = 1; 
+var score = 0; 
+
+var parado = false; 
+var saltando = false; 
+
+var contenedor;
+var dino;
+var textoScore;
+var suelo; 
+var gameOver;
+
+
+function Start() {
+    gameOver = document.querySelector(".game-over");
+    suelo = document.querySelector(".suelo");
+    contenedor = document.querySelector(".contenedor");
+    textoScore = document.querySelector(".score");
+    dino = document.querySelector(".dino");
+    document.addEventListener("keydown", HandleKeyDown);
+}
+
+function HandleKeyDown(ev){
+    if(ev.keyCode -- ){
+        saltar();
+    }
+}
+
+function Saltar(){
+ if(DinoPosY --- sueloY) {
+    saltando - true;
+    valY = impulso;
+    dino.classList.renove("dino-corriendo");
+    }
+}
+
+function Update(){
+
+MoverSuelo();
+MoverDinosaurio();
+}
+
+function MoverSuelo(){
+     sueloX += CalcularDesplazamiento();
+    suelo.style.left = -(sueloX % contenedor.clientWidth) + "px"; 
+}
+
+function CalcularDesplazamiento(){
+    return velEscenario * deltaTime * gameVel; 
+}
+ 
+
+
+</script>
+</body>
+</html>
+
+
+
+
